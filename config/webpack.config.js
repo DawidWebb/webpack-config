@@ -1,12 +1,14 @@
+const path = require("path");
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
-const path = require("path");
 
 module.exports = {
   mode: "development",
-  entry: "./src/app.js",
+  entry: {
+    main: "./src/app.js",
+  },
   output: {
-    filename: "index-[contenthash:6].js",
+    filename: "js/[name].js",
     path: path.resolve(__dirname, "../", "build"),
   },
   devServer: {
@@ -18,8 +20,9 @@ module.exports = {
     rules: [
       { test: /\.txt$/, use: "raw-loader" },
       { test: /\.css$/, use: ["style-loader", "css-loader"] },
+
       {
-        test: /\.(scss|sass)$/,
+        test: /\.(sass|scss)$/,
         use: ["style-loader", "css-loader", "sass-loader"],
       },
       { test: /\.(png|svg|jpg)$/, use: "file-loader" },
@@ -29,11 +32,7 @@ module.exports = {
     new CleanWebpackPlugin(),
     new HtmlWebpackPlugin({
       title: "nowa aplikacja",
-      template: "src/template.html",
+      template: "src/templates/template.html",
     }),
-    // new HtmlWebpackPlugin({
-    //   title: "podstrona",
-    //   filename: "about.html",
-    // }),
   ],
 };
