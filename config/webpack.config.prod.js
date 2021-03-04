@@ -21,7 +21,27 @@ module.exports = {
         test: /\.(sass|scss)$/,
         use: [MiniCssExtractPlugin.loader, "css-loader", "sass-loader"],
       },
-      { test: /\.(png|svg|jpg)$/, use: "file-loader" },
+      {
+        test: /\.(png|svg|jpg|gif)$/,
+        use: [
+          {
+            loader: "file-loader",
+            options: {
+              name: "[name]-[contenthash:6].[ext]",
+              outputPath: "images",
+            },
+          },
+          {
+            loader: "image-webpack-loader",
+            options: {
+              mozjpeg: {
+                quality: 70,
+                progressive: true,
+              },
+            },
+          },
+        ],
+      },
     ],
   },
   plugins: [
@@ -31,7 +51,7 @@ module.exports = {
       template: "src/templates/template.html",
     }),
     new MiniCssExtractPlugin({
-      filename: "css/[name]-[contenthash:6].css",
+      filename: "[name]-[contenthash:6].css",
     }),
   ],
 };

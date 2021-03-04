@@ -1,1 +1,0 @@
-(()=>{"use strict";console.log("działam po bundlingu"),document.querySelector("div").textContent="Witaj, świecie! Kocham Cię!!!"})();
